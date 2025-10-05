@@ -23,4 +23,13 @@ def ban_user(message):
     else:
         bot.reply_to(message, "Эта команда должна быть использована в ответ на сообщение пользователя, которого вы хотите забанить.")
 
+@bot.message_handler(func=lambda message: True)
+def echo_message(message):
+    text = message.text or ""
+
+    if "http://" in text or "https://" in text:
+        bot.reply_to(message, "Похоже, ты отправил ссылку ")
+    else:
+        bot.reply_to(message, "Ссылок не найдено ")
+       
 bot.infinity_polling(none_stop=True)
