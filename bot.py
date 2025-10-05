@@ -1,7 +1,7 @@
 import telebot # библиотека telebot
 from config import token # импорт токена
 
-bot = telebot.TeleBot(#token) 
+bot = telebot.TeleBot(token) 
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -32,4 +32,9 @@ def echo_message(message):
     else:
         bot.reply_to(message, "Ссылок не найдено ")
        
+@bot.message_handler(content_types=['new_chat_members'])
+def make_some(message):
+    bot.send_message(message.chat.id, 'I accepted a new user!')
+    bot.approve_chat_join_request(message.chat.id, message.from_user.id)
+    
 bot.infinity_polling(none_stop=True)
